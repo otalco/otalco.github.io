@@ -1,0 +1,44 @@
+body {
+    font-family: Arial, sans-serif;
+}
+
+header {
+    background-color: #007bff;
+    color: white;
+    padding: 20px 0;
+}
+
+header img {
+    max-width: 100%;
+    height: auto;
+}
+
+.container {
+    margin-top: 20px;
+}
+
+h2 {
+    margin-top: 20px;
+}
+
+pre code {
+    background-color: #f8f9fa;
+    padding: 10px;
+    display: block;
+    border-radius: 5px;
+}
+
+footer {
+    margin-top: 40px;
+    padding: 20px 0;
+    background-color: #f8f9fa;
+}
+
+footer ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+footer ul li {
+    margin-bottom: 10px;
+}

@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MedTech</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="bg-primary text-white text-center py-5">
+        <h1>MedTech</h1>
+        <p>MedTech é uma aplicação web para gerenciamento de prontuários médicos.</p>
+        <img src="medtech-banner.png" alt="MedTech" class="img-fluid">
+    </header>
+
+    <div class="container my-5">
+        <section>
+            <h2>Funcionalidades</h2>
+            <ul>
+                <li>Listagem de pacientes</li>
+                <li>Visualização de prontuários de pacientes</li>
+                <li>Registro de novos prontuários</li>
+                <li>Alteração do status de prontuários</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>Tecnologias Utilizadas</h2>
+            <h3>Frontend</h3>
+            <ul>
+                <li>HTML</li>
+                <li>CSS</li>
+                <li>JavaScript</li>
+                <li>Fetch API</li>
+            </ul>
+            <h3>Backend</h3>
+            <ul>
+                <li>.NET Core</li>
+                <li>ASP.NET Web API</li>
+                <li>Entity Framework Core</li>
+                <li>SQL Server</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>Estrutura do Projeto</h2>
+            <h3>Frontend</h3>
+            <ul>
+                <li>index.html: Página inicial</li>
+                <li>pacientes.html: Página de listagem de pacientes</li>
+                <li>verProntuario.html: Página de visualização de um prontuário específico</li>
+                <li>listaProntuarios.html: Página de listagem de prontuários de um paciente</li>
+                <li>assets/: Diretório contendo arquivos estáticos (CSS, imagens, etc.)</li>
+                <li>assets/js/: Diretório contendo arquivos JavaScript</li>
+            </ul>
+            <h3>Backend</h3>
+            <ul>
+                <li>Controllers/: Diretório contendo os controladores da API</li>
+                <li>Models/: Diretório contendo os modelos de dados</li>
+                <li>Data/: Diretório contendo o contexto do banco de dados</li>
+                <li>Program.cs: Arquivo principal para configuração e inicialização da aplicação</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>Configuração</h2>
+            <h3>Pré-requisitos</h3>
+            <ul>
+                <li>.NET Core SDK</li>
+                <li>SQL Server</li>
+                <li>Node.js (opcional, para gerenciamento de pacotes frontend)</li>
+            </ul>
+            <h3>Backend</h3>
+            <ol>
+                <li>Clone o repositório:
+                    <pre><code>git clone https://github.com/seu-usuario/medtech-backend.git</code></pre>
+                </li>
+                <li>Navegue até o diretório do projeto:
+                    <pre><code>cd medtech-backend</code></pre>
+                </li>
+                <li>Configure a string de conexão com o banco de dados no arquivo <code>appsettings.json</code>.</li>
+                <li>Execute as migrações do Entity Framework para criar o banco de dados:
+                    <pre><code>dotnet ef database update</code></pre>
+                </li>
+                <li>Inicie a aplicação:
+                    <pre><code>dotnet run</code></pre>
+                </li>
+            </ol>
+            <h3>Frontend</h3>
+            <ol>
+                <li>Clone o repositório:
+                    <pre><code>git clone https://github.com/seu-usuario/medtech-frontend.git</code></pre>
+                </li>
+                <li>Navegue até o diretório do projeto:
+                    <pre><code>cd medtech-frontend</code></pre>
+                </li>
+                <li>Abra o arquivo <code>index.html</code> no seu navegador.</li>
+            </ol>
+        </section>
+
+        <section>
+            <h2>Uso</h2>
+            <h3>Listagem de Pacientes</h3>
+            <ol>
+                <li>Abra a página <code>pacientes.html</code>.</li>
+                <li>A lista de pacientes será carregada automaticamente.</li>
+                <li>Clique no botão "Ver Prontuários" para visualizar os prontuários de um paciente específico.</li>
+            </ol>
+            <h3>Visualização de Prontuário</h3>
+            <ol>
+                <li>Abra a página <code>verProntuario.html</code> com o parâmetro <code>prontuarioID</code> na URL.
+                    <pre><code>verProntuario.html?prontuarioID=1</code></pre>
+                </li>
+                <li>Os dados do prontuário serão carregados automaticamente.</li>
+            </ol>
+            <h3>Alteração de Status do Prontuário</h3>
+            <ol>
+                <li>Na página <code>verProntuario.html</code>, clique no botão "Em Atendimento" para alterar o status do prontuário.</li>
+            </ol>
+        </section>
+
+        <section>
+            <h2>Exemplo de Código</h2>
+            <h3>Função para Buscar Prontuário (Frontend)</h3>
+            <pre><code>
+function fetchProntuario() {
+    const prontuarioId = getProntuarioIdFromUrl();
+    fetch(`http://localhost:5107/api/Prontuario/${prontuarioId}`)
+        .then(response => response.json())
+        .then(data => {
+            const prontuarioDados = document.getElementById('prontuario-dados');
+            if (!data || !data.id) {
+                prontuarioDados.innerHTML = '<p><strong>Aviso:</strong> Prontuário não encontrado.</p>';
+            } else {
+                prontuarioDados.innerHTML = `
+                    <p><strong>ID do Paciente:</strong> ${data.pacienteId || 'ID não disponível'}</p>
+                    <p><strong>Peso:</strong> ${data.peso || 'Peso não disponível'}</p>
+                    <p><strong>Altura:</strong> ${data.altura || 'Altura não disponível'}</p>
+                    <p><strong>Pressão Arterial:</strong> ${data.pressaoArterial || 'Pressão Arterial não disponível'}</p>
+                    <p><strong>Temperatura:</strong> ${data.temperatura || 'Temperatura não disponível'}</p>
+                    <p><strong>Saturação:</strong> ${data.saturacao || 'Saturação não disponível'}</p>
+                    <p><strong>Frequência Cardíaca:</strong> ${data.frequenciaCardiaca || 'Frequência Cardíaca não disponível'}</p>
+                    <p><strong>Queixa Principal:</strong> ${data.queixaPrincipal || 'Queixa Principal não disponível'}</p>
+                    <p><strong>Data de Atendimento:</strong> ${data.dataAtendimento ? formatDate(data.dataAtendimento) : 'Data não disponível'}</p>
+                    <p><strong>Status:</strong> ${data.status !== undefined ? getStatusDescription(data.status) : 'Status não disponível'}</p>
+                    <p><strong>Urgência:</strong> ${data.urgencia !== undefined ? getUrgenciaDescription(data.urgencia) : 'Urgência não disponível'}</p>
+                `;
+            }
+        })
+        .catch(error => {
+            console.error('Erro ao buscar prontuário:', error);
+            document.getElementById('prontuario-dados').innerHTML = '<p><strong>Erro:</strong> Não foi possível buscar o prontuário.</p>';
+        });
+}
+            </code></pre>
+
+            <h3>Função para Alterar Status para "Em Atendimento" (Frontend)</h3>
+            <pre><code>
+function alterarStatusParaEmAtendimento() {
+    const prontuarioId = document.getElementById('emAtendimento-btn').dataset.prontuarioId;
+    fetch(`http://localhost:5107/api/Prontuario/status/${prontuarioId}`, {
+        method: 'PATCH',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(2) // 2 representa "Em Atendimento"
+    })
+    .then(response => {
+        if (response.ok) {
+            alert('Status do prontuário atualizado para "Em Atendimento"');
+            // Atualizar a exibição do prontuário
+            fetchProntuario();
+        } else {
+            alert('Erro ao atualizar o status do prontuário.');
+        }
+    })
+    .catch(error => console.error('Erro ao atualizar o status do prontuário:', error));
+}
+            </code></pre>
+        </section>
+
+        <section>
+            <h2>Contribuição</h2>
+            <ol>
+                <li>Faça um fork do projeto</li>
+                <li>Crie uma nova branch: <code>git checkout -b minha-nova-funcionalidade</code></li>
+                <li>Faça suas alterações e commit: <code>git commit -m 'Adiciona nova funcionalidade'</code></li>
+                <li>Envie para o repositório remoto: <code>git push origin minha-nova-funcionalidade</code></li>
+                <li>Abra um pull request</li>
+            </ol>
+        </section>
+
+        <footer class="bg-light text-center py-4">
+            <p>MedTech é uma plataforma inovadora que visa melhorar a gestão de prontuários médicos e o atendimento aos pacientes. Através de uma interface intuitiva, profissionais de saúde podem registrar e acessar informações de pacientes de forma rápida e eficiente. A plataforma oferece funcionalidades como:</p>
+            <ul>
+                <li>Cadastro de Pacientes: Permite o registro detalhado de informações dos pacientes, incluindo histórico médico e dados pessoais.</li>
+                <li>Gerenciamento de Prontuários: Facilita a organização e o acesso aos prontuários médicos, garantindo que todas as informações relevantes estejam disponíveis quando necessário.</li>
+                <li>Registro de Condutas: Profissionais de saúde podem registrar condutas médicas, incluindo medicações prescritas, posologia, evolução do paciente e recomendações.</li>
+                <li>Relatórios e Análises: Gera relatórios detalhados que ajudam na análise do histórico médico dos pacientes e na tomada de decisões clínicas.</li>
+                <li>Segurança e Privacidade: Garante a segurança e a privacidade dos dados dos pacientes, conforme as regulamentações vigentes.</li>
+            </ul>
+            <p>MedTech é uma solução completa para a gestão de informações médicas, proporcionando um atendimento mais eficiente e de qualidade aos pacientes.</p>
+            <p>Contribua: <a href="https://github.com/otalco/MedTechC">Backend: ASP.net Core</a></p>
+            <p>Contribua: <a href="https://github.com/otalco/FrontMedTech">Frontend: HTML, CSS, JS, Bootstrap</a></p>
+        </footer>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
